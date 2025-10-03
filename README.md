@@ -1,49 +1,40 @@
-# AI-Augmented-C2-Framework
-# AI Augmented C2 Framework  
+# AI-Augmented C2 Framework
 
-## 📖 Introduction  
-This project is part of my Bachelor’s research work in Computer Science.  
-The goal is to design and implement a **Command-and-Control (C2) framework** that is enhanced with artificial intelligence techniques for future extensions.  
+Overview
+"AI-Augmented C2 Framework" is a Command-and-Control (C2) proof-of-concept (PoC) project designed to explore "next-generation adversarial operations", combining classical C2 features with "AI-driven adaptability, dynamic payload generation, and stealth capabilities".
 
-The framework demonstrates how agents (remote clients) can connect to a central server, receive tasks, and report results. Later versions will include a database, security features, and AI components for adaptive behavior.  
-
----
-
-## 🎯 Objectives  
-1. Develop a minimal but functional C2 framework (server + agent).  
-2. Extend the framework with secure communication and logging.  
-3. Explore AI-based modules for adaptive tasking and evasion.  
-4. Document weekly progress for supervisor review.  
+Unlike traditional frameworks (e.g., Metasploit, Cobalt Strike, Havoc, Merlin), this framework is being designed to:
+- Support "multi-agent communication".
+- Adapt payloads dynamically using "machine learning" and "mutation techniques".
+- Provide "cross-platform compatibility".
+- Enable a "controller-focused workflow", where operators interact only through the controller while the server remains stealthy.
 
 ---
 
-## 🏗️ Project Phases / Roadmap  
-### Week 1–2  
-- Literature review (C2 frameworks, REST APIs, Flask basics).  
-- Repository setup.  
+Current State (PoC)
+At this stage, the framework provides a "basic working backbone":
+- Server (`server/app.py`)  
+  - Receives agent registration.  
+  - Tracks agents, their OS, and working directory.  
+  - Stores last command results.  
 
-### Week 3 (Current Phase)  
-- Build a minimal Flask server with endpoints:  
-  - `/register` → agent registration.  
-  - `/task/<agent_id>` → assign tasks.  
-  - `/report` → collect results.  
-- Create a minimal agent that:  
-  - Registers itself.  
-  - Requests a task.  
-  - Executes simple “ping” task → responds with “pong”.  
+- Agent (`agent/agent.py`)  
+  - Registers itself with the server (including OS + working directory).  
+  - Polls the server for tasks.  
+  - Executes shell commands and returns output.  
+  - Supports directory navigation (`cd`, `pwd`) and system commands (`whoami`, `dir`, `ipconfig`, etc.).  
 
-### Week 4  
-- Add database (SQLite/MongoDB) for storing agents, tasks, and reports.  
-
-### Week 5  
-- Add security (encryption/authentication).  
-
-### Week 6+  
-- Begin AI integration:  
-  - Adaptive task assignment.  
-  - Simple evasion strategies.  
-- Extend supported agent commands.  
+- Controller (`server/controller.py`)  
+  - CLI interface for the operator.  
+  - Connects to a chosen agent.  
+  - Sends dynamic commands (similar to `msfconsole` or `netcat` interaction).  
+  - Displays live output from the agent.
 
 ---
 
-## 📂 Project Structure  
+Installation & Usage
+
+1. Clone the Repository
+```bash
+git clone https://github.com/wild-sh4rk/AI-Augmented-C2-Framework.git
+cd AI-Augmented-C2-Framework
